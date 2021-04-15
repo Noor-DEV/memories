@@ -59,6 +59,4 @@ app.use((err, req, res, next) => {
     message: err.message,
   });
 });
-app.listen(3001, () => {
-  console.log("listening");
-});
+app.listen(process.env.PORT || 3001);
