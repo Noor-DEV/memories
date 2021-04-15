@@ -19,12 +19,14 @@ mongoose
   });
 const app = express();
 app.use(express.json());
+app.use("/uploads", express.static("uploads"));
+// app.use("/uploads", express.static("uploads"));
 app.get("/", (req, res, next) => {
   res.status(200).redirect("/posts");
 });
 
 app.use("/posts", postRoutes);
-app.use("/uploads", express.static("uploads"));
+
 app.use((req, res, next) => {
   res.status(404).json({
     message: "Resource NOT FOUND!......",
