@@ -24,7 +24,12 @@ app.get("/", (req, res, next) => {
 });
 
 app.use("/posts", postRoutes);
-
+app.use("/uploads", express.static("uploads"));
+app.use((req, res, next) => {
+  res.status(404).json({
+    message: "Resource NOT FOUND!......",
+  });
+});
 app.listen(3001, () => {
   console.log("listening");
 });
