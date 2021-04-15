@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const postRoutes = require("./routes/post");
-require("dotenv").config();
+const cors = require("cors");
 
 mongoose
   .connect(process.env.dburi, {
@@ -15,21 +15,8 @@ mongoose
     console.log(err);
   });
 const app = express();
+app.use(cors());
 app.use(express.json());
-
-//CORS..
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "*");
-
-  if (req.method === "OPTIONS") {
-    res.header("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE");
-    res.status(200).json({});
-  }
-});
-
-//.......CORS........
-
 app.use("/uploads", express.static("uploads"));
 app.get("/", (req, res, next) => {
   res.status(200).json({
